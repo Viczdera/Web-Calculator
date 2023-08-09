@@ -1,0 +1,175 @@
+:root {
+  --blue-primary: #3882f6;
+  --blue-dark: #1f2937;
+  --blue-light: #f9fcff;
+  --white-100: #f9faf8;
+  --gray-100: #e5e7eb;
+}
+
+/* Regular */
+@font-face {
+  font-family: "Roboto";
+  src: url(../assets/fonts/Roboto/Roboto-Regular.ttf) format("truetype");
+}
+
+/* Black */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 900;
+  src: url(../assets/fonts/Roboto/Roboto-Black.ttf) format("truetype");
+}
+
+/* Black Italic */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 900;
+  font-style: italic;
+  src: url(../assets/fonts/Roboto/Roboto-BlackItalic.ttf)
+    format("truetype");
+}
+
+/* Bold */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 700;
+  src: url(../assets/fonts/Roboto/Roboto-Bold.ttf) format("truetype");
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-style: italic;
+  src: url(../assets/fonts/Roboto/Roboto-BoldItalic.ttf)
+    format("truetype");
+}
+
+/* Italic */
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  src: url(../assets/fonts/Roboto/Roboto-Italic.ttf) format("truetype");
+}
+
+/* Light */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 300;
+  src: url(../assets/fonts/Roboto/Roboto-Light.ttf) format("truetype");
+}
+
+/* Light Italic */
+@font-face {
+  font-family: "Roboto Light";
+  font-weight: 300;
+  font-style: italic;
+  src: url(../assets/fonts/Roboto/Roboto-LightItalic.ttf)
+    format("truetype");
+}
+
+/* Medium */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  src: url(../assets/fonts/Roboto/Roboto-Medium.ttf) format("truetype");
+}
+
+/* Medium Italic */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-style: italic;
+  src: url(../assets/fonts/Roboto/Roboto-MediumItalic.ttf)
+    format("truetype");
+}
+
+/* Thin Italic */
+@font-face {
+  font-family: "Roboto";
+  font-weight: 100;
+  font-style: italic;
+  src: url(../assets/fonts/Roboto/Roboto-ThinItalic.ttf)
+    format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  min-width: 250px;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+}
+input {
+  border: none;
+  outline: none;
+}
+button {
+  border: none;
+  cursor: pointer;
+}
+nav {
+  background-color: var(--blue-dark);
+  color: var(--gray-100);
+}
+nav a,
+footer a {
+  color: var(--gray-100);
+  font-size: 18px;
+}
+.txt-48 {
+  font-size: 48px;
+  font-weight: bolder;
+}
+.txt-24 {
+  font-size: 24px;
+  font-weight: bold;
+}
+.txt-24,
+.txt-48 {
+  color: var(--white-100);
+}
+.txt-18 {
+  font-size: 18px;
+  color: var(--gray-100);
+}
+.content-container {
+  display: flex;
+  justify-content: center;
+}
+.content-container .content {
+  width: 100%;
+  max-width: 1600px;
+  padding: 0px 20px;
+}
+
+
+
+@media screen and (min-width: 1280px) {
+  .content-container .content {
+    padding: 0px 60px;
+  }
+}
+@media screen and (min-width: 1024px) {
+ 
+}
+@media screen and (min-width: 640px) {
+  .content-container .content {
+    padding: 0px 40px;
+  }
+  
+}
