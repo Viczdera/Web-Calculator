@@ -21,9 +21,9 @@ function buttonClick(e) {
 }
 
 // Add keyboard event listener
-document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keydown", onKeyDown);
 
-function handleKeyDown(e) {
+function onKeyDown(e) {
   const key = e.key;
   const calculatorBtn =
     key === "Enter" || key === "="
