@@ -155,8 +155,23 @@ footer a {
   width: 100%;
   max-width: 1600px;
   padding: 0px 20px;
+  display: flex;
+  justify-content: center;
 }
+.calculator{
+  width: max-content;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: #ffff;
+}
+.output{
+  min-height: 80px;
+  outline: 1px solid red;
+}
+.btn-row button{
 
+}
 
 
 @media screen and (min-width: 1280px) {
