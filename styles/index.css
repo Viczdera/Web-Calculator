@@ -1,6 +1,8 @@
 :root {
+  --gray-100:#60696efd;
   --orange-100: #fdb82df0;
-  --orange-200: #f3efe3ff;
+  --orange-200: #f5eedb;
+  --orange-300:#7c6537f0;
   --purple-100: #8f27def0;
   --purple-200: #e0d5e8f0;
   --white-100: #f8f8faf0;
@@ -147,7 +149,7 @@ button {
   justify-content: center;
 }
 .calculator {
-  max-width: 300px;
+  /* max-width: 300px; */
   margin-top: 40px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   padding: 10px;
@@ -176,8 +178,8 @@ button {
 }
 .btn-cont {
   flex: 1;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
 }
 .lg-btn-cont {
   flex: 2;
@@ -188,6 +190,7 @@ button {
   font-size: 18px;
   /* padding: 15px 0px; */
   background-color: var(--white-200);
+  color: var(--gray-100);
   box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.15) 0px 2px 5px;
   transition: box-shadow 0.05s, -webkit-box-shadow 0.05s;
   user-select: none;
@@ -218,6 +221,7 @@ button.enter-btn{
 }
 button.purple-btn{
   background-color: var(--orange-200) ;
+  color: var(--orange-300);
 }
 @media screen and (min-width: 1280px) {
   .content-container .content {
