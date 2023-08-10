@@ -5,8 +5,9 @@ buttons.forEach((button) => {
 });
 
 function buttonClick(e) {
-  const buttonValue = e.target.textContent;
-  const action = e.target.dataset.action;
+  const button=e.target
+  const buttonValue = button.textContent;
+  const action = button.dataset.action;
 
   console.log("Clicked button value:", buttonValue);
 
@@ -18,6 +19,12 @@ function buttonClick(e) {
     output.textContent += buttonValue;
   }
   if(action==="clear")output.textContent =""
+
+  button.classList.add("btn-click");
+
+  setTimeout(() => {
+    button.classList.remove("btn-click");
+  }, 200);
 }
 
 // Add keyboard event listener

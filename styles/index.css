@@ -189,7 +189,7 @@ button {
   /* padding: 15px 0px; */
   background-color: var(--white-200);
   box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.15) 0px 2px 5px;
-  transition: box-shadow 0.2s, -webkit-box-shadow 0.2s;
+  transition: box-shadow 0.05s, -webkit-box-shadow 0.05s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -199,11 +199,26 @@ button {
 }
 .lg-btn-cont button {
   border-radius: 30px;
+  font-weight: 600;
 }
-.btn-row button:hover {
-  box-shadow: unset;
-}
+/* .btn-row button:hover {
+  box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.05) 0px 2px 5px;
+} */
+button.btn-click{
+  box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.05) 0px 2px 5px ;
 
+}
+button.clear-btn{
+  background-color: var(--orange-100) ;
+  color: white;
+}
+button.enter-btn{
+  background-color: var(--purple-100) ;
+  color: white;
+}
+button.purple-btn{
+  background-color: var(--orange-200) ;
+}
 @media screen and (min-width: 1280px) {
   .content-container .content {
     padding: 0px 60px;
