@@ -1,169 +1,203 @@
-// const buttons = document.querySelectorAll(".btn-row button");
-// const output = document.getElementById("display");
-// buttons.forEach((button) => {
-//   button.addEventListener("click", buttonClick);
-// });
-
-// function buttonClick(e) {
-//   const button=e.target
-//   const buttonValue = button.textContent;
-//   const action = button.dataset.action;
-
-//   console.log("Clicked button value:", buttonValue);
-
-//   if (
-//     action !== "clear" &&
-//     action !== "delete" &&
-//     action !== "calculate"
-//   ) {
-//     output.textContent += buttonValue;
-//   }
-//   if(action==="clear")output.textContent =""
-
-//   button.classList.add("btn-click");
-
-//   setTimeout(() => {
-//     button.classList.remove("btn-click");
-//   }, 200);
-// }
-
-// // Add keyboard event listener
-// document.addEventListener("keydown", onKeyDown);
-
-// function onKeyDown(e) {
-//   const key = e.key;
-//   const calculatorBtn =
-//     key === "Enter" || key === "="
-//       ? Array.from(buttons).find((button) => button.dataset.value === "Enter")
-//       : Array.from(buttons).find((button) => button.dataset.value === key);
-
-//   if (calculatorBtn) {
-//     calculatorBtn.click();
-//   }
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
   const display = document.getElementById('display');
-  const numberButtons = document.querySelectorAll('[data-value]');
-  const operatorButtons = document.querySelectorAll('[data-action]');
-  const clearButton = document.querySelector('[data-action="clear"]');
-  const deleteButton = document.querySelector('[data-action="delete"]');
-  const calculateButton = document.querySelector('[data-action="calculate"]');
-  const decimalButton = document.querySelector('[data-value="."]');
-  
+  const buttons = document.querySelectorAll('button');
+
   let currentInput = '0';
   let firstOperand = null;
-  let operator = null;
-  
-  // Update display
+  let secondOperand = null;
+  let firstOperator = null;
+  let secondOperator = null;
+  let result = null;
+
+  window.addEventListener('keydown', function (e) {
+    const key = document.querySelector(`button[data-value='${e.key}']`);
+    if (key) {
+      key.click();
+    }
+  });
+
   function updateDisplay() {
-    display.textContent = currentInput;
+    display.innerText = currentInput;
+    if (currentInput.length > 9) {
+      display.innerText = currentInput.substring(0, 9);
+    }
   }
-  
-  // Clear calculator
-  function clearCalculator() {
+
+  function Operand(operand) {
+    if (firstOperator === null) {
+      if (currentInput === '0' || currentInput === 'Cannot divide by zero') {
+        currentInput = operand;
+      } else if (currentInput === firstOperand) {
+        currentInput = operand;
+      } else {
+        currentInput += operand;
+      }
+    } else {
+      if (currentInput === firstOperand) {
+        currentInput = operand;
+      } else {
+        currentInput += operand;
+      }
+    }
+  }
+
+  function Operator(operator) {
+    if (firstOperator != null && secondOperator === null) {
+      secondOperator = operator;
+      secondOperand = currentInput;
+      result = calculate(Number(firstOperand), Number(secondOperand), firstOperator);
+      currentInput = roundTo(result, 15).toString();
+      firstOperand = currentInput;
+      result = null;
+    } else if (firstOperator != null && secondOperator != null) {
+      secondOperand = currentInput;
+      result = calculate(Number(firstOperand), Number(secondOperand), secondOperator);
+      secondOperator = operator;
+      currentInput = roundTo(result, 15).toString();
+      firstOperand = currentInput;
+      result = null;
+    } else {
+      firstOperator = operator;
+      firstOperand = currentInput;
+    }
+  }
+
+  function Equals() {
+    if (firstOperator === null) {
+      currentInput = currentInput;
+    } else if (secondOperator != null) {
+      secondOperand = currentInput;
+      result = calculate(Number(firstOperand), Number(secondOperand), secondOperator);
+      if (result === 'Cannot divide by zero') {
+        currentInput = 'Cannot divide by zero';
+      } else {
+        currentInput = roundTo(result, 15).toString();
+        firstOperand = currentInput;
+        secondOperand = null;
+        firstOperator = null;
+        secondOperator = null;
+        result = null;
+      }
+    } else {
+      secondOperand = currentInput;
+      result = calculate(Number(firstOperand), Number(secondOperand), firstOperator);
+      if (result === 'Cannot divide by zero') {
+        currentInput = 'Cannot divide by zero';
+      } else {
+        currentInput = roundTo(result, 15).toString();
+        firstOperand = currentInput;
+        secondOperand = null;
+        firstOperator = null;
+        secondOperator = null;
+        result = null;
+      }
+    }
+  }
+
+  function Decimal(dot) {
+    if (currentInput === firstOperand || currentInput === secondOperand || currentInput === 'Cannot divide by zero') {
+      currentInput = '0';
+      currentInput += dot;
+    } else if (!currentInput.includes(dot)) {
+      currentInput += dot;
+    }
+  }
+
+  function Percent() {
+    currentInput = (Number(currentInput) / 100).toString();
+  }
+
+  function Sign() {
+    currentInput = (Number(currentInput) * -1).toString();
+  }
+
+  function clearDisplay() {
     currentInput = '0';
     firstOperand = null;
-    operator = null;
-    updateDisplay();
+    secondOperand = null;
+    firstOperator = null;
+    secondOperator = null;
+    result = null;
   }
-  
-  // Handle number button clicks
-  function handleNumberClick(number) {
-    if (currentInput === '0' || operator === '=') {
-      currentInput = number;
-    } else {
-      currentInput += number;
-    }
-    updateDisplay();
-  }
-  
-  // Handle operator button clicks
-  function handleOperatorClick(action) {
-    if (operator !== null) {
-      calculate();
-    }
-    if (action !== 'calculate') {
-      operator = action;
-      firstOperand = parseFloat(currentInput);
-      currentInput = '0';
+
+  function calculate(a, b, calc) {
+    if (calc === '+') {
+      return a + b;
+    } else if (op === '-') {
+      return a - b;
+    } else if (op === '*') {
+      return a * b;
+    } else if (op === '/') {
+      if (b === 0) {
+        return 'Cannot divide by zero';
+      } else {
+        return a / b;
+      }
     }
   }
-  
-  // Perform calculation
-  function calculate() {
-    const secondOperand = parseFloat(currentInput);
-    switch (operator) {
-      case 'add':
-        currentInput = (firstOperand + secondOperand).toString();
-        break;
-      case 'subtract':
-        currentInput = (firstOperand - secondOperand).toString();
-        break;
-      case 'multiply':
-        currentInput = (firstOperand * secondOperand).toString();
-        break;
-      case 'divide':
-        if (secondOperand !== 0) {
-          currentInput = (firstOperand / secondOperand).toString();
-        } else {
-          currentInput = 'Error: Cannot divide by zero';
-        }
-        break;
-    }
-    operator = null;
-    firstOperand = parseFloat(currentInput);
-    updateDisplay();
+
+  function roundTo(num, places) {
+    return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
   }
-  
-  // Add event listeners for number buttons
-  numberButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      handleNumberClick(button.textContent);
+
+  // Add event listeners for button clicks
+  buttons.forEach(button => {
+    button.addEventListener('click', function () {
+      const buttonType = button.getAttribute('data-type');
+      if (buttonType === "operand") {
+        Operand(button.getAttribute("data-value"));
+        updateDisplay();
+      } else if (buttonType === "operator") {
+        Operator(button.getAttribute("data-value"));
+      } else if (buttonType === "enter") {
+        Equals();
+        updateDisplay();
+      } else if (buttonType === "decimal") {
+        Decimal(button.getAttribute("data-value"));
+        updateDisplay();
+      } else if (buttonType === "percent") {
+        Percent();
+        updateDisplay();
+      } else if (buttonType === "sign") {
+        Sign();
+        updateDisplay();
+      } else if (buttonType === "clear") {
+        clearDisplay();
+        updateDisplay();
+      } else if (buttonType === "delete") {
+        currentInput = currentInput.slice(0, -1) || "0";
+        updateDisplay();
+      }
     });
   });
   
-  // Add event listeners for operator buttons
-  operatorButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      handleOperatorClick(button.dataset.action);
-    });
-  });
-  
-  // Add event listeners for other buttons
-  clearButton.addEventListener('click', clearCalculator);
-  deleteButton.addEventListener('click', () => {
-    currentInput = currentInput.slice(0, -1) || '0';
-    updateDisplay();
-  });
-  calculateButton.addEventListener('click', calculate);
-  decimalButton.addEventListener('click', () => {
-    if (!currentInput.includes('.')) {
-      currentInput += '.';
-      updateDisplay();
-    }
-  });
-  
+
   // Keyboard support
   document.addEventListener('keydown', (event) => {
     const key = event.key;
-    if (/[0-9]/.test(key)) {
-      handleNumberClick(key);
-    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-      handleOperatorClick(key);
+    if (/^[0-9]$/.test(key)) {
+      Operand(key);
+      updateDisplay();
+    } else if (['+', '-', '*', '/'].includes(key)) {
+      Operator(key);
     } else if (key === 'Enter') {
-      calculate();
+      Equals();
+      updateDisplay();
     } else if (key === '.') {
-      if (!currentInput.includes('.')) {
-        currentInput += '.';
-        updateDisplay();
-      }
+      Decimal('.');
+      updateDisplay();
+    } else if (key === '%') {
+      Percent();
+      updateDisplay();
     } else if (key === 'Backspace') {
       currentInput = currentInput.slice(0, -1) || '0';
       updateDisplay();
+    } else if (key === '_') {
+      Sign();
+      updateDisplay();
     }
   });
-  
+
   // Initialize display
   updateDisplay();
 });
