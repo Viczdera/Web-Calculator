@@ -123,11 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function calculate(a, b, calc) {
     if (calc === '+') {
       return a + b;
-    } else if (op === '-') {
+    } else if (calc === '-') {
       return a - b;
-    } else if (op === '*') {
+    } else if (calc === '*') {
       return a * b;
-    } else if (op === '/') {
+    } else if (calc === '/') {
       if (b === 0) {
         return 'Cannot divide by zero';
       } else {
