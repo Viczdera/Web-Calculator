@@ -18,10 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateDisplay() {
     display.innerText = currentInput;
-    if (currentInput.length > 9) {
+    if (currentInput === "Cannot divide by zero") {
+      display.style.fontSize = "24px";
+      display.style.lineHeight = "1.5";
+    } else if (currentInput.length > 9) {
       display.innerText = currentInput.substring(0, 9);
     }
   }
+  
 
   function Operand(operand) {
     if (firstOperator === null) {
@@ -136,6 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function deLete() {
+    if (currentInput === "Cannot divide by zero") {
+      currentInput = "0";
+    } else {
+      currentInput = currentInput.slice(0, -1) || "0";
+    }
+  }  
+
   function roundTo(num, places) {
     return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
   }
@@ -165,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearDisplay();
         updateDisplay();
       } else if (buttonType === "delete") {
-        currentInput = currentInput.slice(0, -1) || "0";
+        deLete();
         updateDisplay();
       }
     });
