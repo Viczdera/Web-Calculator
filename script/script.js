@@ -1,15 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const display = document.getElementById('display');
-  const buttons = document.querySelectorAll('button');
+document.addEventListener("DOMContentLoaded", () => {
+  const display = document.getElementById("display");
+  const buttons = document.querySelectorAll("button");
 
-  let currentInput = '0';
+  let currentInput = "0";
   let firstOperand = null;
   let secondOperand = null;
   let firstOperator = null;
   let secondOperator = null;
   let result = null;
 
-  window.addEventListener('keydown', function (e) {
+  window.addEventListener("keydown", function (e) {
     const key = document.querySelector(`button[data-value='${e.key}']`);
     if (key) {
       key.click();
@@ -25,11 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
       display.innerText = currentInput.substring(0, 9);
     }
   }
-  
 
   function Operand(operand) {
     if (firstOperator === null) {
-      if (currentInput === '0' || currentInput === 'Cannot divide by zero') {
+      if (currentInput === "0" || currentInput === "Cannot divide by zero") {
         currentInput = operand;
       } else if (currentInput === firstOperand) {
         currentInput = operand;
@@ -49,13 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (firstOperator != null && secondOperator === null) {
       secondOperator = operator;
       secondOperand = currentInput;
-      result = calculate(Number(firstOperand), Number(secondOperand), firstOperator);
+      result = calculate(
+        Number(firstOperand),
+        Number(secondOperand),
+        firstOperator
+      );
       currentInput = roundTo(result, 15).toString();
       firstOperand = currentInput;
       result = null;
     } else if (firstOperator != null && secondOperator != null) {
       secondOperand = currentInput;
-      result = calculate(Number(firstOperand), Number(secondOperand), secondOperator);
+      result = calculate(
+        Number(firstOperand),
+        Number(secondOperand),
+        secondOperator
+      );
       secondOperator = operator;
       currentInput = roundTo(result, 15).toString();
       firstOperand = currentInput;
@@ -71,9 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
       currentInput = currentInput;
     } else if (secondOperator != null) {
       secondOperand = currentInput;
-      result = calculate(Number(firstOperand), Number(secondOperand), secondOperator);
-      if (result === 'Cannot divide by zero') {
-        currentInput = 'Cannot divide by zero';
+      result = calculate(
+        Number(firstOperand),
+        Number(secondOperand),
+        secondOperator
+      );
+      if (result === "Cannot divide by zero") {
+        currentInput = "Cannot divide by zero";
       } else {
         currentInput = roundTo(result, 15).toString();
         firstOperand = currentInput;
@@ -84,9 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       secondOperand = currentInput;
-      result = calculate(Number(firstOperand), Number(secondOperand), firstOperator);
-      if (result === 'Cannot divide by zero') {
-        currentInput = 'Cannot divide by zero';
+      result = calculate(
+        Number(firstOperand),
+        Number(secondOperand),
+        firstOperator
+      );
+      if (result === "Cannot divide by zero") {
+        currentInput = "Cannot divide by zero";
       } else {
         currentInput = roundTo(result, 15).toString();
         firstOperand = currentInput;
@@ -99,8 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function Decimal(dot) {
-    if (currentInput === firstOperand || currentInput === secondOperand || currentInput === 'Cannot divide by zero') {
-      currentInput = '0';
+    if (
+      currentInput === firstOperand ||
+      currentInput === secondOperand ||
+      currentInput === "Cannot divide by zero"
+    ) {
+      currentInput = "0";
       currentInput += dot;
     } else if (!currentInput.includes(dot)) {
       currentInput += dot;
@@ -116,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function clearDisplay() {
-    currentInput = '0';
+    currentInput = "0";
     firstOperand = null;
     secondOperand = null;
     firstOperator = null;
@@ -125,15 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function calculate(a, b, calc) {
-    if (calc === '+') {
+    if (calc === "+") {
       return a + b;
-    } else if (calc === '-') {
+    } else if (calc === "-") {
       return a - b;
-    } else if (calc === '*') {
+    } else if (calc === "*") {
       return a * b;
-    } else if (calc === '/') {
+    } else if (calc === "/") {
       if (b === 0) {
-        return 'Cannot divide by zero';
+        return "Cannot divide by zero";
       } else {
         return a / b;
       }
@@ -146,16 +165,21 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       currentInput = currentInput.slice(0, -1) || "0";
     }
-  }  
+  }
 
   function roundTo(num, places) {
-    return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
+    return parseFloat(Math.round(num + "e" + places) + "e-" + places);
   }
 
   // Add event listeners for button clicks
-  buttons.forEach(button => {
-    button.addEventListener('click', function () {
-      const buttonType = button.getAttribute('data-type');
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const buttonType = button.getAttribute("data-type");
+      button.classList.add("btn-click");
+      setTimeout(() => {
+        button.classList.remove("btn-click");
+      }, 200);
+
       if (buttonType === "operand") {
         Operand(button.getAttribute("data-value"));
         updateDisplay();
@@ -182,29 +206,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
 
   // Keyboard support
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener("keydown", (event) => {
     const key = event.key;
     if (/^[0-9]$/.test(key)) {
       Operand(key);
       updateDisplay();
-    } else if (['+', '-', '*', '/'].includes(key)) {
+    } else if (["+", "-", "*", "/"].includes(key)) {
       Operator(key);
-    } else if (key === 'Enter') {
+    } else if (key === "Enter") {
       Equals();
       updateDisplay();
-    } else if (key === '.') {
-      Decimal('.');
+    } else if (key === ".") {
+      Decimal(".");
       updateDisplay();
-    } else if (key === '%') {
+    } else if (key === "%") {
       Percent();
       updateDisplay();
-    } else if (key === 'Backspace') {
-      currentInput = currentInput.slice(0, -1) || '0';
+    } else if (key === "Backspace") {
+      currentInput = currentInput.slice(0, -1) || "0";
       updateDisplay();
-    } else if (key === '_') {
+    } else if (key === "_") {
       Sign();
       updateDisplay();
     }
@@ -213,3 +236,41 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize display
   updateDisplay();
 });
+
+// function buttonClick(e) {
+//   const button=e.target
+//   const buttonValue = button.textContent;
+//   const action = button.dataset.action;
+
+//   console.log("Clicked button value:", buttonValue);
+
+//   if (
+//     action !== "clear" &&
+//     action !== "delete" &&
+//     action !== "calculate"
+//   ) {
+//     output.textContent += buttonValue;
+//   }
+//   if(action==="clear")output.textContent =""
+
+//   button.classList.add("btn-click");
+
+//   setTimeout(() => {
+//     button.classList.remove("btn-click");
+//   }, 200);
+// }
+
+// Add keyboard event listener
+// document.addEventListener("keydown", onKeyDown);
+
+// function onKeyDown(e) {
+//   const key = e.key;
+//   const calculatorBtn =
+//     key === "Enter" || key === "="
+//       ? Array.from(buttons).find((button) => button.dataset.value === "Enter")
+//       : Array.from(buttons).find((button) => button.dataset.value === key);
+
+//   if (calculatorBtn) {
+//     calculatorBtn.click();
+//   }
+// }
