@@ -201,7 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
         clearDisplay();
         updateDisplay();
       } else if (buttonType === "delete") {
-        deLete();
         updateDisplay();
       }
     });
