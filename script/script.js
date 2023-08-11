@@ -211,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (event) => {
     const key = event.key;
     if (/^[0-9]$/.test(key)) {
-      Operand(key);
       updateDisplay();
     } else if (["+", "-", "*", "/"].includes(key)) {
       Operator(key);
