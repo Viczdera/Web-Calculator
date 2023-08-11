@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearDisplay();
         updateDisplay();
       } else if (buttonType === "delete") {
+        deLete()
         updateDisplay();
       }
     });
@@ -223,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
       Percent();
       updateDisplay();
     } else if (key === "Backspace") {
-      currentInput = currentInput.slice(0, -1) || "0";
       updateDisplay();
     } else if (key === "_") {
       Sign();
