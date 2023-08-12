@@ -38,35 +38,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
+  
   function Operator(operator) {
     if (firstOperator != null && secondOperator === null) {
       secondOperator = operator;
-      secondOperand = currentInput;
-      result = calculate(
-        Number(firstOperand),
-        Number(secondOperand),
-        firstOperator
-      );
-      currentInput = roundTo(result, 15).toString();
-      firstOperand = currentInput;
-      result = null;
     } else if (firstOperator != null && secondOperator != null) {
-      secondOperand = currentInput;
-      result = calculate(
-        Number(firstOperand),
-        Number(secondOperand),
-        secondOperator
-      );
       secondOperator = operator;
-      currentInput = roundTo(result, 15).toString();
-      firstOperand = currentInput;
+      result = calculate(Number(firstOperand), Number(secondOperand), secondOperator);
+      firstOperand = result.toString();
+      currentInput = result.toString();
+      secondOperand = null;
       result = null;
     } else {
       firstOperator = operator;
       firstOperand = currentInput;
     }
   }
+  
 
   function Equals() {
     if (firstOperator === null) {
@@ -106,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         result = null;
       }
     }
+    
   }
 
   function Decimal(dot) {
