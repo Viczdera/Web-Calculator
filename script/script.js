@@ -9,12 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let secondOperator = null;
   let result = null;
 
-  window.addEventListener("keydown", function (e) {
-    const key = document.querySelector(`button[data-value='${e.key}']`);
-    if (key) {
-      key.click();
-    }
-  });
 
   function updateDisplay() {
     display.innerText = currentInput;
@@ -175,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add event listeners for button clicks
   buttons.forEach((button) => {
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function (e) {
       const buttonType = button.getAttribute("data-type");
       button.classList.add("btn-click");
       setTimeout(() => {
@@ -188,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (buttonType === "operator") {
         Operator(button.getAttribute("data-value"));
       } else if (buttonType === "enter") {
+        e.preventDefault()
         Equals();
         updateDisplay();
       } else if (buttonType === "decimal") {
@@ -209,31 +204,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Keyboard support
-  document.addEventListener("keydown", (event) => {
-    const key = event.key;
-    if (/^[0-9]$/.test(key)) {
-      updateDisplay();
-    } else if (["+", "-", "*", "/"].includes(key)) {
-      Operator(key);
-    } else if (key === "Enter") {
-      event.preventDefault();
-      Equals();
-      updateDisplay();
-    } else if (key === ".") {
-      Decimal(".");
-      updateDisplay();
-    } else if (key === "%") {
+
+  window.addEventListener("keydown", function (e) {
+    const calcButton =
+      e.key === "="
+        ? document.querySelector(`button[data-value='Enter']`)
+        : document.querySelector(`button[data-value='${e.key}']`);
+    if (calcButton) calcButton.click();
+
+    if (e.key === "%") {
       Percent();
       updateDisplay();
-    } else if (key === "Backspace") {
-      updateDisplay();
-    } else if (key === "_") {
+    } else if (e.key === "_") {
       Sign();
       updateDisplay();
     }
   });
-
   // Initialize display
   updateDisplay();
 });
