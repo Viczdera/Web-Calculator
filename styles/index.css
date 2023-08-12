@@ -1,8 +1,8 @@
 :root {
-  --gray-100:#60696efd;
+  --gray-100: #60696efd;
   --orange-100: #fdb82df0;
   --orange-200: #f5eedb;
-  --orange-300:#7c6537f0;
+  --orange-300: #7c6537f0;
   --purple-100: #8f27def0;
   --purple-200: #e0d5e8f0;
   --white-100: #f8f8faf0;
@@ -93,9 +93,11 @@
 * {
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
   font-family: "Roboto", sans-serif;
   margin: 0;
@@ -106,21 +108,26 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 a {
   text-decoration: none;
 }
+
 ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 li {
   list-style-type: none;
 }
+
 input {
   border: none;
   outline: none;
 }
+
 button {
   border: none;
   cursor: pointer;
@@ -130,22 +137,27 @@ button {
   font-size: 48px;
   font-weight: bolder;
 }
+
 .txt-24 {
   font-size: 24px;
   font-weight: bold;
 }
+
 .txt-24,
 .txt-48 {
   color: var(--white-100);
 }
+
 .txt-18 {
   font-size: 18px;
   color: var(--gray-100);
 }
+
 .content-container {
   display: flex;
   justify-content: center;
 }
+
 .content-container .content {
   width: 100%;
   max-width: 1600px;
@@ -153,6 +165,7 @@ button {
   display: flex;
   justify-content: center;
 }
+
 .calculator {
   /* max-width: 300px; */
   margin-top: 40px;
@@ -161,36 +174,44 @@ button {
   border-radius: 12px;
   background-color: var(--white-100);
 }
+
 .output {
   display: flex;
   align-items: end;
   min-height: 80px;
 }
+
 #display {
   width: 100%;
   min-height: 20px;
   font-size: 3rem;
   height: max-content;
   text-align: end;
-  white-space: normal; /* Allow text to wrap */
+  white-space: normal;
+  /* Allow text to wrap */
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+
 .btn-row {
   display: flex;
 }
+
 .btn-cont,
 .lg-btn-cont {
   padding: 4px;
 }
+
 .btn-cont {
   flex: 1;
   width: 70px;
   height: 70px;
 }
+
 .lg-btn-cont {
   flex: 2;
 }
+
 .btn-row button {
   width: 100%;
   height: 100%;
@@ -204,47 +225,64 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
+
 .btn-cont button {
   border-radius: 50%;
 }
+
 .lg-btn-cont button {
   border-radius: 30px;
   font-weight: 600;
 }
+
 /* .btn-row button:hover {
   box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.05) 0px 2px 5px;
 } */
-button.btn-click{
-  box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.05) 0px 2px 5px ;
+button.btn-click {
+  box-shadow: transparent 0 0 0 3px, rgba(102, 102, 102, 0.05) 0px 2px 5px;
 
 }
-button.clear-btn{
-  background-color: var(--orange-100) ;
+
+button.clear-btn {
+  background-color: var(--orange-100);
   color: white;
 }
-button.enter-btn{
-  background-color: var(--purple-100) ;
+
+button.enter-btn {
+  background-color: var(--purple-100);
   color: white;
 }
-button.purple-btn{
-  background-color: var(--orange-200) ;
+
+button.purple-btn {
+  background-color: var(--orange-200);
   color: var(--orange-300);
 }
+
+/* Javascript Dynamic Styles Start */
+.display-error {
+  font-size: 24px !important;
+  line-height: 1.5 !important;
+}
+
+/* Javascript Dynamic Styles End */
 @media screen and (min-width: 1280px) {
   .content-container .content {
     padding: 0px 60px;
   }
 }
-@media screen and (min-width: 1024px) {
-}
+
+@media screen and (min-width: 1024px) {}
+
 @media screen and (min-width: 640px) {
   .content-container .content {
     padding: 0px 40px;
   }
+
   .calculator {
     max-width: unset;
     width: 350px;
   }
+
   .btn-cont {
     width: 80px;
     height: 80px;

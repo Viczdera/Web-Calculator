@@ -18,11 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateDisplay() {
     display.innerText = currentInput;
-    if (currentInput === "Cannot divide by zero") {
-      display.style.fontSize = "24px";
-      display.style.lineHeight = "1.5";
-    } else if (currentInput.length > 9) {
+    if (!isNaN(currentInput) && currentInput.length > 9) {
       display.innerText = currentInput.substring(0, 9);
+    } else if (!isNaN(currentInput)) {
+      display.innerText = currentInput;
+    } else {
+      display.classList.add("display-error");
     }
   }
 
@@ -152,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return a * b;
     } else if (calc === "/") {
       if (b === 0) {
+        currentInput = "Cannot divide by zero";
         return "Cannot divide by zero";
       } else {
         return a / b;
@@ -215,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (["+", "-", "*", "/"].includes(key)) {
       Operator(key);
     } else if (key === "Enter") {
+      event.preventDefault();
       Equals();
       updateDisplay();
     } else if (key === ".") {
